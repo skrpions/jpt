@@ -1,0 +1,80 @@
+<!-- en (ngSubmit)="enviar($event)" es necesario pasar el evento nativo de html para cancelarlo en ts y asi evitar que se recargue la página -->
+<!-- novalidate sirve para indicarle a HTML que no haga validaciones automáticas  -->
+
+<!-- Start :: Formulario -->
+<form [formGroup]="formulario" (ngSubmit)="enviar($event)" class="shadow" novalidate >
+
+    <div class="row">
+        <!-- Temperatura -->
+        <div class="col-4">
+            <div class="form-group">
+                <label for="temperatura">Temperatura:*</label>
+                <input [(ngModel)]="cantidadtemperatura" formControlName="temperatura" type="number" class="form-control" id="temperatura" placeholder="">
+                <!-- {{temperaturaField.value.length}}/50 -->
+                <span class="icon-left"><i class="fas fa-check-circle"></i></span>
+                <span class="msj" *ngIf="temperaturaField.errors && temperaturaField.touched">
+                    <p *ngIf="temperaturaField.hasError('required')">
+                    Campo Requerido *
+                    </p>
+                    <p *ngIf="temperaturaField.hasError('maxlength')">
+                    Te pasaste, máximo deben haber 50 caracteres.
+                    </p>
+                </span>
+            </div>
+        </div>
+
+        <!-- Humedad -->
+        <div class="col-4">
+            <div class="form-group">
+                <label for="humedad">Humedad:*</label>
+                <input [(ngModel)]="cantidadhumedad" formControlName="humedad" type="number" class="form-control" id="humedad" placeholder="">
+                <!-- {{humedadField.value.length}}/50 -->
+                <span class="icon-left"><i class="fas fa-check-circle"></i></span>
+                <span class="msj" *ngIf="humedadField.errors && humedadField.touched">
+                    <p *ngIf="humedadField.hasError('required')">
+                    Campo Requerido *
+                    </p>
+                </span>
+            </div>
+    
+        </div>
+        
+        <!-- Nivel -->
+        <div class="col-4">
+            <div class="form-group">
+                <label for="nivel">Nivel:*</label>
+                <input [(ngModel)]="cantidadnivel" formControlName="nivel" type="number" class="form-control" id="nivel" placeholder="">
+                <span *ngIf="nivelField.errors && nivelField.touched">
+                    <p *ngIf="nivelField.hasError('required')">
+                    Campo Requerido *
+                    </p>
+                </span>    
+            </div>
+        </div>
+    </div>
+    
+     <br>
+    <div class="row">
+      <p class="text-center color" id="operation">Ecuación Indice: </p> 
+      <p class="text-center color"> ( 0.5 * {{ cantidadtemperatura }} )+ ( 0.15 * {{ cantidadhumedad }} )+ ( 0.2 * {{ cantidadnivel }} ) = <strong>{{cantidadtemperatura*0.5 + cantidadhumedad*0.15 + cantidadnivel*0.2}}</strong></p> 
+    </div>
+
+    <!-- Indice Ambiental -->
+    <div class="form-group">
+        <label for="indice"><b>Ingresa el Indice Ambiental Calculado:*</b></label>
+        <input [(ngModel)]="indice.indice" formControlName="indice" type="number" class="form-control" id="indice" placeholder="">
+        <span *ngIf="indiceField.errors && indiceField.touched">
+            <p *ngIf="indiceField.hasError('required')">
+              Campo Requerido *
+            </p>
+            <p *ngIf="humedadField.hasError('maxlength')">
+                Te pasaste, máximo deben haber 15 caracteres.
+              </p>
+        </span>    
+    </div>
+
+
+    <!-- Enviar -->
+    <button type="submit" name="enviar" class="btn">Enviar</button>
+</form>
+<!-- End :: Formulario -->

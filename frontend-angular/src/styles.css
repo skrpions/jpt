@@ -1,0 +1,29 @@
+/* You can add global styles to this file, and also import other style files */
+#headerfixed{
+    width: 100%;
+    background-color: rgba(00,30, 40, .7);
+}
+#headerfixed ul{
+    text-align: center;
+}
+#headerfixed ul li{
+    list-style: none;
+    display:inline-block;
+}
+#headerfixed ul li a{
+    display: block;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #fff;
+    font-size: 'raleway', sans-serif;
+    letter-spacing: 2px;
+    font-weight: 600;
+    padding: 25px;
+}
+#headerfixed ul li a:hover{
+    background-color: #211b4385;
+}
+dl, ol, ul{
+    margin-top: 0;
+    margin-bottom: 1rem;
+}

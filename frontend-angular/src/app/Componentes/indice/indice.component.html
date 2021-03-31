@@ -1,0 +1,37 @@
+<div class="container mt-5 pt-5">
+    <div class="row">
+      <div class="col-7">
+        <h2>INDICES AMBIENTALES!</h2>
+        <!-- Aquí empieza el formulario-->
+        <div class="card">
+            <div class="card-body">
+                
+                <!-- Llamo al componente donde está el formulario -->
+                <app-formulario></app-formulario>
+              
+            </div>    
+        </div>
+      </div>
+
+      <div class="col-1"></div>
+
+      <!-- Aquí empieza la gráfica -->
+      <div class="col-4">
+        <!-- Aquí empieza el listado -->
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Indice</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let indice of ListarIndiceAmbiental">
+              <th scope="row">{{ indice.id }}</th>
+              <td>{{ indice.indice }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,38 @@
+<div class="container mt-5 pt-5">
+    <div class="col-12">
+      <h2>HUMEDADES!</h2>
+        <div class="row" >
+            <div class="col-5 pl-5 mt-5">
+                 <!-- Aquí empieza el listado -->
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">ENG</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let humedad of ListarHumedad">
+                        <th scope="row">{{humedad.id}}</th>
+                        <td>{{humedad.ENG}}</td>
+                
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+
+            <!-- Aquí empieza la gráfica -->
+            <div class="col-7">
+              <h1>Gráfica</h1>
+              <br>
+              <!-- Componente : Graficas de la humedad -->
+              <app-grafhumedad></app-grafhumedad>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    
+</div>
