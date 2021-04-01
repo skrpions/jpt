@@ -1,11 +1,10 @@
--- phpMyAdmin SQL Dump
--- version 4.9.2
--- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 29-03-2021 a las 10:03:47
--- Versión del servidor: 10.4.10-MariaDB
--- Versión de PHP: 7.1.33
+-- Crear Base de datos: `quiz`
+--
+CREATE DATABASE quiz;
+USE quiz;
+
+
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
