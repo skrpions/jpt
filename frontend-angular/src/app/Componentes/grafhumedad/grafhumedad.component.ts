@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label } from 'ng2-charts';
+import { Humedad, HumedadService } from "../../Servicios/humedad.service";
+
 
 @Component({
   selector: 'app-grafhumedad',
@@ -10,6 +12,56 @@ import { Label } from 'ng2-charts';
 })
 export class GrafhumedadComponent implements OnInit {
 
+   // Arreglo de humedades
+   ListarHumedad: Humedad[];
+  //Arreglo de los id que vamos a pasar
+  private id = [];
+
+  //Arreglo de los ENG que vamos a pasar
+  private eng = [];
+
+     // Inyecto el servicio para obtener las humedades
+  constructor(private HumedadService: HumedadService) { }
+
+  ngOnInit(): void {
+
+    //this.listarHumedades();
+    this.barChartData = [];
+    this.barChartLabels = [];
+    let blinkArry: any[] = [];
+
+    this.HumedadService.getHumedades().subscribe( res => {
+        this.ListarHumedad=<any>res; // Obtengo todas las humedades que trae el Service
+
+        // Hacemos un recorrido almacenando en cada arreglo lo necesario
+        for (const humedad of this.ListarHumedad) 
+        {
+          this.id.push(humedad.id);
+          this.eng.push(humedad.ENG);
+          this.barChartLabels.push(humedad.id);
+
+          // Convierto las comas por puntos para graficar. Si los decimales están con comas desde la bd, es necesario reemplazarlos por puntos en Angular
+          let dataconpuntos = reemplazarComa(humedad.ENG);
+          function reemplazarComa(data) {
+              // convertir string en array y eliminar espacios en blanco
+              let dataToArray = data.split(',').map(item => item.trim());
+              // convertir array en cadena reemplazando la coma con un punto
+              return dataToArray.join(".");
+          }        
+    
+          blinkArry.push(dataconpuntos);
+
+          // Obtengo los últimos 100 registros con slice(-101), ya que inicia desde el id 0. Si quisiera los últimos 25 registros debo colocar slice(-25)
+          var ultimoscienregistros = blinkArry.slice(-101);
+          // Envío los ultimos cien registros a barChartData
+          this.barChartData = [{ data: ultimoscienregistros, label: 'Eng', backgroundColor: '#005a72' }];
+        }
+      },
+      err => console.log(err)
+    );
+  }
+
+  
   public barChartOptions: ChartOptions = {
     responsive: true,
     // We use these empty structures as placeholders for dynamic theming.
@@ -21,28 +73,12 @@ export class GrafhumedadComponent implements OnInit {
       }
     }
   };
-  public barChartLabels: Label[] = ['Valores'];
+  public barChartLabels: Label[];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartPlugins = [pluginDataLabels];
 
-  public barChartData: ChartDataSets[] = [
-    { data: [0], label: 'Entre 0 y 10' },
-    { data: [0], label: 'Entre 11 y 20'},
-    { data: [0], label: 'Entre 21 y 30'},
-    { data: [0], label: 'Entre 31 y 40'},
-    { data: [0], label: 'Entre 41 y 50'},
-    { data: [74], label: 'Entre 51 y 60'},
-    { data: [27], label: 'Entre 61 y 70'},
-    { data: [0], label: 'Entre 71 y 80'},
-    { data: [0], label: 'Entre 81 y 90'},
-    { data: [0], label: 'Entre 91 y 100'}
-  ];
- 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  public barChartData: ChartDataSets[] = [{backgroundColor: ['#003040', '#003040']}];
 
   // events
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
@@ -52,4 +88,6 @@ export class GrafhumedadComponent implements OnInit {
   public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
     console.log(event, active);
   }
+
+  
 }

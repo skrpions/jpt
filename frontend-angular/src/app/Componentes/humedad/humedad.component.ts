@@ -9,7 +9,7 @@ import { Humedad, HumedadService } from "../../Servicios/humedad.service";
 })
 export class HumedadComponent implements OnInit {
 
-  // Variable
+  // Arreglo de humedades
   ListarHumedad: Humedad[];
   constructor(private HumedadService: HumedadService) { }
 
@@ -24,7 +24,7 @@ export class HumedadComponent implements OnInit {
     this.HumedadService.getHumedades().subscribe(
       res => {
         console.log(res)
-        this.ListarHumedad=<any>res;
+        this.ListarHumedad=<any>res; // Recupero todas las humedades que vienen que obtuvo el Service
         this.ngOnInit(); // Refresco el componente para que se vean los nuevos datos registrados
       },
       err => console.log(err)

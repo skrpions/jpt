@@ -5,7 +5,7 @@ const conexion = require('./../config/conexion')
 // Get humedades
 router.get('/',(req,res)=>{
     let sql = 'SELECT * FROM humedad'
-    conexion.query(sql,(err, rows, fields)=>{
+    conexion.query(sql,(err, rows, fields)=>{ // Obtengo 3 posibles de respuestas (error, fila o archivo)
         if(err){
             throw err;
         }
@@ -15,7 +15,7 @@ router.get('/',(req,res)=>{
         else{
             res.json({message: 'No hay resultados'});
         }
-    }) // Obtengo 3 tipos de respuestas (error, fila o archivo)
+    }) 
 })
 
 // Get humedad x id

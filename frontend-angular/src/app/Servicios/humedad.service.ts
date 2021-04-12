@@ -14,7 +14,7 @@ export class HumedadService {
     // Get Todas las Humedades
     getHumedades()
     {
-      return this.http.get(this.url);
+      return this.http.get(this.url);  // Traigo todas las humedades desde el back con el método get y los retorno
     }
 
     // Get una sola Humedad
