@@ -30,7 +30,8 @@ export class GrafhumedadComponent implements OnInit {
     this.barChartLabels = [];
     let blinkArry: any[] = [];
 
-    this.HumedadService.getHumedades().subscribe( res => {
+    this.HumedadService.getHumedades().subscribe( res => 
+      {
         this.ListarHumedad=<any>res; // Obtengo todas las humedades que trae el Service
 
         // Hacemos un recorrido almacenando en cada arreglo lo necesario
@@ -54,7 +55,8 @@ export class GrafhumedadComponent implements OnInit {
           // Obtengo los últimos 100 registros con slice(-101), ya que inicia desde el id 0. Si quisiera los últimos 25 registros debo colocar slice(-25)
           var ultimoscienregistros = blinkArry.slice(-101);
           // Envío los ultimos cien registros a barChartData
-          this.barChartData = [{ data: ultimoscienregistros, label: 'Eng', backgroundColor: '#005a72' }];
+          this.barChartData = [{ data: ultimoscienregistros, label: 'Eng', 
+          backgroundColor: 'rgba(4, 128, 4,1)'}];
         }
       },
       err => console.log(err)
@@ -77,8 +79,7 @@ export class GrafhumedadComponent implements OnInit {
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartPlugins = [pluginDataLabels];
-
-  public barChartData: ChartDataSets[] = [{backgroundColor: ['#003040', '#003040']}];
+  public barChartData: ChartDataSets[];
 
   // events
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {

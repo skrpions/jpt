@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
-import { Label } from 'ng2-charts';
+import { Color, BaseChartDirective, Label } from 'ng2-charts';
+import * as pluginAnnotations from 'chartjs-plugin-annotation';
+import {Temperatura, TemperaturaService} from '../../Servicios/temperatura.service'
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-graftemperatura',
@@ -10,47 +13,103 @@ import { Label } from 'ng2-charts';
 })
 export class GraftemperaturaComponent implements OnInit {
 
-  public barChartOptions: ChartOptions = {
-    responsive: true,
-    // We use these empty structures as placeholders for dynamic theming.
-    scales: { xAxes: [{}], yAxes: [{}] },
-    plugins: {
-      datalabels: {
-        anchor: 'end',
-        align: 'end',
-      }
-    }
-  };
-  public barChartLabels: Label[] = ['Valores'];
-  public barChartType: ChartType = 'bar';
-  public barChartLegend = true;
-  public barChartPlugins = [pluginDataLabels];
+  // Arreglo de temperaturas
+  ListaTemperaturas: Temperatura[];
+  //Arreglo de los id que vamos a pasar
+  private id = [];
 
-  public barChartData: ChartDataSets[] = [
-    { data: [0], label: 'Entre 0 y 10' },
-    { data: [0], label: 'Entre 11 y 20'},
-    { data: [0], label: 'Entre 21 y 30'},
-    { data: [0], label: 'Entre 31 y 40'},
-    { data: [0], label: 'Entre 41 y 50'},
-    { data: [0], label: 'Entre 51 y 60'},
-    { data: [0], label: 'Entre 61 y 70'},
-    { data: [0], label: 'Entre 71 y 80'},
-    { data: [68], label: 'Entre 81 y 90'},
-    { data: [32], label: 'Entre 91 y 100'}
-  ];
+  //Arreglo de los ENG que vamos a pasar
+  private eng = [];
 
-  constructor() { }
+  // Inyecto el servicio para obtener las temperaturas
+  constructor(private TemperaturaService : TemperaturaService) { }
 
   ngOnInit(): void {
+    this.lineChartData = [];
+    this.lineChartLabels = [];
+    let blinkArry: any[] = [];
+
+    this.TemperaturaService.getTemperaturas().subscribe( res => 
+      {
+        this.ListaTemperaturas=<any>res; // Obtengo todas las Temperaturas que trae el Service
+
+        // Hacemos un recorrido almacenando en cada arreglo lo necesario
+        for (const temperatura of this.ListaTemperaturas) 
+        {
+          this.id.push(temperatura.id);
+          this.eng.push(temperatura.ENG);
+          this.lineChartLabels.push(temperatura.id);
+
+          // Convierto las comas por puntos para graficar. Si los decimales están con comas desde la bd, es necesario reemplazarlos por puntos en Angular
+          let dataconpuntos = reemplazarComa(temperatura.ENG);
+          function reemplazarComa(data) {
+              // convertir string en array y eliminar espacios en blanco
+              let dataToArray = data.split(',').map(item => item.trim());
+              // convertir array en cadena reemplazando la coma con un punto
+              return dataToArray.join(".");
+          }        
+    
+          blinkArry.push(dataconpuntos);
+
+          // Obtengo los últimos 100 registros con slice(-101), ya que inicia desde el id 0. Si quisiera los últimos 25 registros debo colocar slice(-25)
+          var ultimoscienregistros = blinkArry.slice(-100);
+          // Envío los ultimos cien registros a barChartData
+          this.lineChartData = [{ data: ultimoscienregistros, label: 'Eng'}];
+        }
+      },
+      err => console.log(err)
+    );
+
   }
 
-   // events
-   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
+  public lineChartData: ChartDataSets[];
+  public lineChartLabels: Label[];
+  public lineChartOptions: (ChartOptions & { annotation: any }) = {
+    responsive: true,
+    scales: {
+      // We use this empty structure as a placeholder for dynamic theming.
+      xAxes: [{}],
+      yAxes: [
+        {
+          id: 'y-axis-0',
+          position: 'left',
+        },
+        {
+          id: 'y-axis-1',
+          position: 'right',
+          gridLines: {
+            color: 'rgba(0, 255, 0, 0.3)',
+          },
+          ticks: {
+            fontColor: 'green',
+          }
+        }
+      ]
+    },
+    annotation: {      
+    },
+  };
+  public lineChartColors: Color[] = [
+    { // green
+      backgroundColor: 'rgba(0, 255, 0, 0.3)',
+      borderColor: 'rgba(4, 128, 4,1)',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    }
+  ];
+  public lineChartLegend = true;
+  public lineChartType: ChartType = 'line';
+  public lineChartPlugins = [pluginAnnotations];
+
+
+  // events
+  public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
     console.log(event, active);
   }
 
   public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
     console.log(event, active);
   }
-
 }
