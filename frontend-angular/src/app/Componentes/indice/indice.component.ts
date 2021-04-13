@@ -16,8 +16,6 @@ export class IndiceComponent implements OnInit {
 
 
   ngOnInit(): void {
-    
-
     this.listarIndiceAmbiental();
   }
 

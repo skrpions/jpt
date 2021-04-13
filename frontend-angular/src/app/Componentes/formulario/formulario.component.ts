@@ -93,7 +93,7 @@ export class FormularioComponent implements OnInit {
       // Calculo la ecuación
       var resultado = (this.cantidadtemperatura*0.5)+(this.cantidadhumedad*0.15)+(this.cantidadnivel*0.2)
       
-      // Convierto a String el resultado para poder enviarlo ya que en el Service esta como String 
+      // Convierto a String el resultado para poder enviarlo, ya que en el Service esta como String 
       this.indice.indice = resultado.toString();
       
       // Elimino el id porque en la bd es autoincrement
@@ -104,7 +104,7 @@ export class FormularioComponent implements OnInit {
       //this.router.navigate(['/indiceambiental/list']); // Una vez registrado me devolvuelvo a la ruta inicial
 
     }else{
-      // Activo todos los errores en el formulario
+      // Si el formulario no es válido entonces Activo todos los errores en el formulario
       this.formulario.markAllAsTouched();
     }
   }

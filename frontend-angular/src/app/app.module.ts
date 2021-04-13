@@ -16,6 +16,7 @@ import { GraftemperaturaComponent } from './Componentes/graftemperatura/graftemp
 import { GrafnivelComponent } from './Componentes/grafnivel/grafnivel.component';
 import { CargarScriptsService } from './Servicios/cargar-scripts.service';
 import { FormularioComponent } from './Componentes/formulario/formulario.component';
+import { GrafindiceComponent } from './Componentes/grafindice/grafindice.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { FormularioComponent } from './Componentes/formulario/formulario.compone
     GrafhumedadComponent,
     GraftemperaturaComponent,
     GrafnivelComponent,
-    FormularioComponent
+    FormularioComponent,
+    GrafindiceComponent
   ],
   imports: [
     BrowserModule,
