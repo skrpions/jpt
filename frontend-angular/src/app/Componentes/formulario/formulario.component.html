@@ -1,8 +1,8 @@
-<!-- en (ngSubmit)="enviar($event)" es necesario pasar el evento nativo de html para cancelarlo en ts y asi evitar que se recargue la página -->
+<!-- en (ngSubmit)="calcular_ecuacion($event)" es necesario pasar el evento nativo de html para cancelarlo en ts y asi evitar que se recargue la página -->
 <!-- novalidate sirve para indicarle a HTML que no haga validaciones automáticas  -->
 
 <!-- Start :: Formulario -->
-<form [formGroup]="formulario" (ngSubmit)="enviar($event)" class="shadow" novalidate >
+<form [formGroup]="formulario" (ngSubmit)="calcular_ecuacion($event)" class="shadow" novalidate >
 
     <div class="row">
         <!-- Temperatura -->
@@ -59,9 +59,9 @@
       <p class="text-center color" id="operation">Ecuación Indice: </p> 
       <p class="text-center color"> ( 0.5 * {{ cantidadtemperatura }} )+ ( 0.15 * {{ cantidadhumedad }} )+ ( 0.2 * {{ cantidadnivel }} ) = <strong>{{cantidadtemperatura*0.5 + cantidadhumedad*0.15 + cantidadnivel*0.2}}</strong></p> 
     </div>
-
+<!--
     <div class="row">
-        <!-- Indice Ambiental -->
+         Indice Ambiental 
     <div class="form-group">
         <label for="indice"><b>Ingresa el Indice Ambiental Calculado:*</b></label>
         <input [(ngModel)]="indice.indice" formControlName="indice" type="number" class="form-control" id="indice" placeholder="">
@@ -74,13 +74,20 @@
               </p>
         </span>    
     </div>
+    </div> -->
+
+
+    <div class="row">
+        <div class="col-12">
+            <!-- Enviar -->
+            
+        </div>
     </div>
-    
     
     <div class="row">
         <div class="col-12">
             <!-- Enviar -->
-            <button type="submit" name="enviar" class="btn">Enviar</button>
+            <button type="submit" name="enviar" class="btn btn-primary btn-lg btn-block">Enviar</button>
         </div>
     </div>
     

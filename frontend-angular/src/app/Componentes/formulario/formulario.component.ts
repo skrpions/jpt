@@ -19,12 +19,12 @@ import {Router} from '@angular/router';
 export class FormularioComponent implements OnInit {
 
    // cantidadone: number;
-   cantidadtemperatura = null;
+   cantidadtemperatura= null;
    cantidadhumedad = null;
    cantidadnivel = null;
-   resultadoindice = null;
+   resultadoindice='';
 
-  // Creo un indice y lo inicializo 
+  // Creo un modelo indice y lo inicializo 
   indice : Indice={
     id:'',
     indice:''
@@ -51,7 +51,7 @@ export class FormularioComponent implements OnInit {
     ({
       temperatura: ['', [Validators.required]],
       humedad: ['', [Validators.required]],
-      indice: ['', [Validators.required]],
+      //indice: ['', [Validators.required]],
       nivel: ['', [Validators.required,Validators.maxLength(15)]],
     });
 
@@ -75,25 +75,32 @@ export class FormularioComponent implements OnInit {
   get nivelField(){
     return this.formulario.get('nivel');
   }
-  get indiceField(){
+  /*get indiceField(){
     return this.formulario.get('indice');
-  }
+  } */
 
 
   // Metodo que envia el formulario al Backend en Formato Json directamente
-  enviar(event: Event)
+  calcular_ecuacion(event: Event)
   {
     // Cancelo el refresh nativo de html de toda la página
     event.preventDefault();
     
-
     // Pregunto si el formulario es válido
     if(this.formulario.valid)
     {
-      delete this.indice.id; // Elimino el id porque en la bd es autoincrement
+
+      // Calculo la ecuación
+      var resultado = (this.cantidadtemperatura*0.5)+(this.cantidadhumedad*0.15)+(this.cantidadnivel*0.2)
+      
+      // Convierto a String el resultado para poder enviarlo ya que en el Service esta como String 
+      this.indice.indice = resultado.toString();
+      
+      // Elimino el id porque en la bd es autoincrement
+      delete this.indice.id; // Este es el primer atributo del modelo creado
     
-      this.indice.indice;
-      this.IndiceambientalService.addIndice(this.indice).subscribe(); // Agrego los datos
+      this.indice.indice; // Este es el segundo atributo del modelo creado
+      this.IndiceambientalService.addIndice(this.indice).subscribe(); // Agrego todos los datos que tenga el modelo indice creado.
       //this.router.navigate(['/indiceambiental/list']); // Una vez registrado me devolvuelvo a la ruta inicial
 
     }else{
@@ -104,5 +111,4 @@ export class FormularioComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }
