@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
-import { Label } from 'ng2-charts';
+import {  Color, Label } from 'ng2-charts';
 import { Humedad, HumedadService } from "../../Servicios/humedad.service";
 
 
@@ -55,8 +55,7 @@ export class GrafhumedadComponent implements OnInit {
           // Obtengo los últimos 100 registros con slice(-101), ya que inicia desde el id 0. Si quisiera los últimos 25 registros debo colocar slice(-25)
           var ultimoscienregistros = blinkArry.slice(-101);
           // Envío los ultimos cien registros a barChartData
-          this.barChartData = [{ data: ultimoscienregistros, label: 'Eng', 
-          backgroundColor: 'rgba(4, 128, 4,1)'}];
+          this.barChartData = [{ data: ultimoscienregistros, label: 'Eng'}];
         }
       },
       err => console.log(err)
@@ -80,6 +79,17 @@ export class GrafhumedadComponent implements OnInit {
   public barChartLegend = true;
   public barChartPlugins = [pluginDataLabels];
   public barChartData: ChartDataSets[];
+
+ 
+
+public barChartColors: Color[] = [
+  { backgroundColor: 'green' },
+]
+
+
+
+
+  
 
   // events
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, BaseChartDirective, Label } from 'ng2-charts';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
@@ -18,6 +18,8 @@ export class GrafindiceComponent implements OnInit {
 
   //Arreglo de los indices que vamos a pasar
   private indice = [];
+
+  @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
 
   // Inyecto el servicio para obtener los indices
   constructor(private IndiceambientalService : IndiceambientalService) { }
@@ -51,11 +53,10 @@ export class GrafindiceComponent implements OnInit {
         
         // Envío los ultimos cien registros a barChartData
         this.lineChartData = [{ data: blinkArry, label: 'Indice'}];
-
+        
       },
       err => console.log(err)
     );
-
   }
 
 
@@ -108,5 +109,11 @@ export class GrafindiceComponent implements OnInit {
 
   public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
     console.log(event, active);
+  }
+
+  public actualizarGrafica(): void {
+
+    // Refresco la gráfica
+    this.ngOnInit();
   }
 }

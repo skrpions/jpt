@@ -1,6 +1,6 @@
 <div class="container mt-5 pt-5">
     <div class="row">
-      <div class="col-10">
+      <div class="col-8">
         <h2>INDICES AMBIENTALES!</h2>
         <!-- Aquí empieza el formulario-->
         <div class="card">
@@ -25,19 +25,25 @@
 
 
       <!-- Aquí empieza la gráfica -->
-      <div class="col-2">
+      <div class="col-4">
         <!-- Aquí empieza el listado -->
         <table class="table">
           <thead>
             <tr>
               <th scope="col">Id</th>
+              <th scope="col">Temperatura</th>
+              <th scope="col">Humedad</th>
+              <th scope="col">Nivel</th>
               <th scope="col">Indice</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let indice of ListarIndiceAmbiental">
               <th scope="row">{{ indice.id }}</th>
-              <td>{{ indice.indice }}</td>
+              <td>{{ indice.temperatura }}</td>
+              <td>{{ indice.humedad}}</td>
+              <td>{{ indice.nivel }}</td>
+              <td><b>{{ indice.indice }}</b></td>
             </tr>
           </tbody>
         </table>

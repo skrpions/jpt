@@ -1,10 +1,11 @@
+-- phpMyAdmin SQL Dump
+-- version 4.9.2
+-- https://www.phpmyadmin.net/
 --
--- Crear Base de datos: `quiz`
---
-CREATE DATABASE quiz;
-USE quiz;
-
-
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 13-04-2021 a las 23:51:57
+-- Versión del servidor: 10.4.10-MariaDB
+-- Versión de PHP: 7.1.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,6 +22,8 @@ SET time_zone = "+00:00";
 -- Base de datos: `quiz`
 --
 
+CREATE DATABASE IF NOT EXISTS quiz;
+USE quiz;
 -- --------------------------------------------------------
 
 --
@@ -147,15 +150,21 @@ INSERT INTO `humedad` (`id`, `ENG`) VALUES
 
 CREATE TABLE `indiceambiental` (
   `id` smallint(6) NOT NULL,
-  `indice` double NOT NULL
+  `temperatura` double NOT NULL,
+  `humedad` double NOT NULL,
+  `nivel` double NOT NULL,
+  `indice` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `indiceambiental`
 --
 
-INSERT INTO `indiceambiental` (`id`, `indice`) VALUES
-(1, 42.25);
+INSERT INTO `indiceambiental` (`id`, `temperatura`, `humedad`, `nivel`, `indice`) VALUES
+(1, 17.3, 64.2, 99.1, 38.1),
+(2, 14.6, 69.9, 95.32, 36.849000000000004),
+(3, 15.6, 65.6, 92.9, 36.22),
+(4, 19.2, 69.1, 94.1, 38.785);
 
 -- --------------------------------------------------------
 
@@ -429,7 +438,7 @@ ALTER TABLE `indiceambiental`
 -- AUTO_INCREMENT de la tabla `indiceambiental`
 --
 ALTER TABLE `indiceambiental`
-  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

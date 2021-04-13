@@ -24,12 +24,15 @@ router.get('/list',(req,res)=>{
 
 
 // Registrar Nuevo Indice Ambiental en la Base de Datos
-router.post('/create', (req, res) => {
+router.post('/create', (req, res) => {  
 
-    const {indice} = req.body;
-    const sql = `INSERT INTO indiceambiental ( id, indice) VALUES ('NULL', '${indice}')`;
+    const {temperatura, humedad, nivel, indice} = req.body;
 
-    conexion.query(sql, (err, rows, fields) => {
+    const sql = `INSERT INTO indiceambiental ( id, temperatura, humedad, nivel, indice) VALUES ('NULL','${temperatura}','${humedad}','${nivel}', '${indice}')`;
+    //const sql = `INSERT INTO indiceambiental (id, indice) VALUES ('NULL', '${indice}')`;
+
+    //console.log(sql);
+    conexion.query(sql, (err, rows) => {
         if (!err) {
             res.send(rows);
         } else {

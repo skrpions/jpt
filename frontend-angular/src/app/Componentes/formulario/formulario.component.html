@@ -9,7 +9,7 @@
         <div class="col-4">
             <div class="form-group">
                 <label for="temperatura">Temperatura:*</label>
-                <input [(ngModel)]="cantidadtemperatura" formControlName="temperatura" type="number" class="form-control" id="temperatura" placeholder="">
+                <input [(ngModel)]="indiceambi.temperatura" formControlName="temperatura" type="number" class="form-control" id="temperatura" placeholder="">
                 <!-- {{temperaturaField.value.length}}/50 -->
                 <span class="icon-left"><i class="fas fa-check-circle"></i></span>
                 <span class="msj" *ngIf="temperaturaField.errors && temperaturaField.touched">
@@ -27,7 +27,7 @@
         <div class="col-4">
             <div class="form-group">
                 <label for="humedad">Humedad:*</label>
-                <input [(ngModel)]="cantidadhumedad" formControlName="humedad" type="number" class="form-control" id="humedad" placeholder="">
+                <input [(ngModel)]="indiceambi.humedad" formControlName="humedad" type="number" class="form-control" id="humedad" placeholder="">
                 <!-- {{humedadField.value.length}}/50 -->
                 <span class="icon-left"><i class="fas fa-check-circle"></i></span>
                 <span class="msj" *ngIf="humedadField.errors && humedadField.touched">
@@ -42,7 +42,7 @@
         <div class="col-4">
             <div class="form-group">
                 <label for="nivel">Nivel:*</label>
-                <input [(ngModel)]="cantidadnivel" formControlName="nivel" type="number" class="form-control" id="nivel" placeholder="">
+                <input [(ngModel)]="indiceambi.nivel" formControlName="nivel" type="number" class="form-control" id="nivel" placeholder="">
                 <span *ngIf="nivelField.errors && nivelField.touched">
                     <p *ngIf="nivelField.hasError('required')">
                     Campo Requerido *
@@ -57,30 +57,14 @@
     <!-- Ecuación Indice Ambiental -->
     <div class="row">
       <p class="text-center color" id="operation">Ecuación Indice: </p> 
-      <p class="text-center color"> ( 0.5 * {{ cantidadtemperatura }} )+ ( 0.15 * {{ cantidadhumedad }} )+ ( 0.2 * {{ cantidadnivel }} ) = <strong>{{cantidadtemperatura*0.5 + cantidadhumedad*0.15 + cantidadnivel*0.2}}</strong></p> 
+      <!-- <p class="text-center color"> ( 0.5 * {{ indiceambi.temperatura }} )+ ( 0.15 * {{ indiceambi.humedad }} )+ ( 0.2 * {{indiceambi.nivel }} ) = <strong>{{indiceambi.*0.5 + cantidadhumedad*0.15 + cantidadnivel*0.2}}</strong></p>  -->
+      <p class="text-center color"> ( 0.5 * {{ indiceambi.temperatura }} )+ ( 0.15 * {{ indiceambi.humedad }} )+ ( 0.2 * {{indiceambi.nivel }} ) = <strong>{{ resultadonumerico }}</strong></p> 
+
     </div>
-<!--
-    <div class="row">
-         Indice Ambiental 
-    <div class="form-group">
-        <label for="indice"><b>Ingresa el Indice Ambiental Calculado:*</b></label>
-        <input [(ngModel)]="indice.indice" formControlName="indice" type="number" class="form-control" id="indice" placeholder="">
-        <span *ngIf="indiceField.errors && indiceField.touched">
-            <p *ngIf="indiceField.hasError('required')">
-              Campo Requerido *
-            </p>
-            <p *ngIf="humedadField.hasError('maxlength')">
-                Te pasaste, máximo deben haber 15 caracteres.
-              </p>
-        </span>    
-    </div>
-    </div> -->
 
 
     <div class="row">
-        <div class="col-12">
-            <!-- Enviar -->
-            
+        <div class="col-12">            
         </div>
     </div>
     

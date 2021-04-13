@@ -1,5 +1,6 @@
 <div class="flex">
     <div class="flex-item">
+      <button mat-button mat-raised-button color="primary" (click)="actualizarGrafica()">Actualizar Gráfica</button>
       <div style="display: block;">
       <canvas baseChart width="400" height="400"
                   [datasets]="lineChartData"

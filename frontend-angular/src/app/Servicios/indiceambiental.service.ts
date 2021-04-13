@@ -28,6 +28,9 @@ export class IndiceambientalService {
 // Exporto la interfaz para validar los datos del formulario
 export interface Indice{
   id?:string;
+  temperatura?:string;
+  humedad?:string;
+  nivel?:string;
   indice?:string;
 }
 
